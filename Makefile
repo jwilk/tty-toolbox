@@ -1,7 +1,10 @@
 # Copyright © 2023 Jakub Wilk <jwilk@jwilk.net>
 # SPDX-License-Identifier: MIT
 
-progs = fgvt noctty vtshift
+progs = noctty
+ifneq "$(findstring -linux-,$(MAKE_HOST))" ""
+progs += fgvt vtshift
+endif
 
 CFLAGS ?= -g -O2
 CFLAGS += -Wall -Wextra
