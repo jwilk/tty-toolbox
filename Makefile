@@ -3,6 +3,9 @@
 
 progs = fgvt noctty
 
+CFLAGS ?= -g -O2
+CFLAGS += -Wall -Wextra
+
 .PHONY: all
 all: $(progs)
 
