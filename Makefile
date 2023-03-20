@@ -1,7 +1,7 @@
 # Copyright © 2023 Jakub Wilk <jwilk@jwilk.net>
 # SPDX-License-Identifier: MIT
 
-progs = fgvt noctty
+progs = fgvt noctty vtshift
 
 CFLAGS ?= -g -O2
 CFLAGS += -Wall -Wextra
