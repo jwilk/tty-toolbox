@@ -1,7 +1,7 @@
 # Copyright © 2023 Jakub Wilk <jwilk@jwilk.net>
 # SPDX-License-Identifier: MIT
 
-progs = noctty
+progs = fgvt noctty
 
 .PHONY: all
 all: $(progs)
