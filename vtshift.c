@@ -23,7 +23,7 @@ static void xerror(const char *context)
 }
 
 #define KG(x) { .value = KG_ ## x, .name = "KG_" # x }
-struct {
+static struct {
     int value;
     const char *name;
 } keys[] = {
