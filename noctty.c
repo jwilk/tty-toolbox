@@ -30,7 +30,6 @@ static void xerror(const char *context)
 
 int main(int argc, char **argv)
 {
-    int fd = open(DEV_TTY, O_RDONLY);
     if (argc <= 1) {
         show_usage(stderr);
         exit(EXIT_FAILURE);
@@ -39,6 +38,7 @@ int main(int argc, char **argv)
         show_usage(stdout);
         exit(EXIT_SUCCESS);
     }
+    int fd = open(DEV_TTY, O_RDONLY);
     if (fd < 0 && errno != ENXIO)
         xerror(DEV_TTY);
     if (fd >= 0) {
