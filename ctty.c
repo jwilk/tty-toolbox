@@ -18,6 +18,19 @@ static void xerror(const char *context)
     exit(EXIT_FAILURE);
 }
 
+static void close_stdout(void)
+{
+    int rc;
+    if (ferror(stdout)) {
+        fclose(stdout);
+        rc = EOF;
+        errno = EIO;
+    } else
+        rc = fclose(stdout);
+    if (rc == EOF)
+        xerror("stdout");
+}
+
 #define DEV_TTY "/dev/tty"
 
 int main(void)
@@ -26,6 +39,7 @@ int main(void)
     if (fd < 0)
         xerror(DEV_TTY);
     printf(DEV_TTY "\n");
+    close_stdout();
     return EXIT_SUCCESS;
 }
 

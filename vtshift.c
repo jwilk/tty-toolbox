@@ -22,6 +22,19 @@ static void xerror(const char *context)
     exit(EXIT_FAILURE);
 }
 
+static void close_stdout(void)
+{
+    int rc;
+    if (ferror(stdout)) {
+        fclose(stdout);
+        rc = EOF;
+        errno = EIO;
+    } else
+        rc = fclose(stdout);
+    if (rc == EOF)
+        xerror("stdout");
+}
+
 #define KG(x) { .value = KG_ ## x, .name = "KG_" # x }
 static struct {
     int value;
@@ -46,6 +59,7 @@ int main(void)
     for (size_t i = 0; i < ARRAY_SIZE(keys); i++)
         if (n & (1 << keys[i].value))
             printf("%s\n", keys[i].name);
+    close_stdout();
     return EXIT_SUCCESS;
 }
 

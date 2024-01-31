@@ -23,12 +23,26 @@ static void xerror(const char *context)
     exit(EXIT_FAILURE);
 }
 
+static void close_stdout(void)
+{
+    int rc;
+    if (ferror(stdout)) {
+        fclose(stdout);
+        rc = EOF;
+        errno = EIO;
+    } else
+        rc = fclose(stdout);
+    if (rc == EOF)
+        xerror("stdout");
+}
+
 int main(void)
 {
     char subcode = TIOCL_GETFGCONSOLE;
     int n = ioctl(STDIN_FILENO, TIOCLINUX, &subcode);
     if (n >= 0) {
         printf("/dev/tty%d\n", n + 1);
+        close_stdout();
         return EXIT_SUCCESS;
     }
     const char *path = "/sys/class/tty/tty0/active";
@@ -47,6 +61,7 @@ int main(void)
     }
     close(fd);
     printf("/dev/%s\n", buf);
+    close_stdout();
     return EXIT_SUCCESS;
 }
 

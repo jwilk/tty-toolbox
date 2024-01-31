@@ -26,6 +26,20 @@ static void xerror(const char *context)
     exit(EXIT_FAILURE);
 }
 
+static void close_stdout(void)
+{
+    int rc;
+    if (ferror(stdout)) {
+        fclose(stdout);
+        rc = EOF;
+        errno = EIO;
+    } else
+        rc = fclose(stdout);
+    if (rc == EOF)
+        xerror("stdout");
+}
+
+
 #define DEV_TTY "/dev/tty"
 
 int main(int argc, char **argv)
@@ -36,6 +50,7 @@ int main(int argc, char **argv)
     }
     if (argc == 2 && (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)) {
         show_usage(stdout);
+        close_stdout();
         exit(EXIT_SUCCESS);
     }
     int fd = open(DEV_TTY, O_RDONLY);
