@@ -12,6 +12,19 @@
 
 #define PROGRAM_NAME "noctty"
 
+/* Portability note:
+
+TIOCNOTTY (the ioctl noctty uses under the hood) seems to be available on
+most contemporary systems:
++ Linux
++ FreeBSD (>= 12.2)
+  https://reviews.freebsd.org/D22572
++ OpenBSD
++ NetBSD
++ macOS
+
+*/
+
 static void show_usage(FILE *fp)
 {
     fprintf(fp, "Usage: %s COMMAND [ARG...]\n", PROGRAM_NAME);
