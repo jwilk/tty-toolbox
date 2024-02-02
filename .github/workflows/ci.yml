@@ -31,6 +31,9 @@ jobs:
     - name: build
       run:
         make CC=${{matrix.cc}}
+    - name: smoke test
+      run: |
+        prove -v
     - name: run cppcheck
       if: matrix.cc == 'gcc'
       run: |
