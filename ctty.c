@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define PROGRAM_NAME "ctty"
 
@@ -38,6 +39,7 @@ int main(void)
     int fd = open(DEV_TTY, O_RDONLY);
     if (fd < 0)
         xerror(DEV_TTY);
+    close(fd);
     printf(DEV_TTY "\n");
     close_stdout();
     return EXIT_SUCCESS;
