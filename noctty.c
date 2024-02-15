@@ -52,7 +52,6 @@ static void close_stdout(void)
         xerror("stdout");
 }
 
-
 #define DEV_TTY "/dev/tty"
 
 int main(int argc, char **argv)
