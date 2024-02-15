@@ -12,6 +12,10 @@ CFLAGS += -Wall -Wextra
 .PHONY: all
 all: $(progs)
 
+.PHONY: test
+test: all
+	prove -v
+
 .PHONY: clean
 clean:
 	rm -f $(progs)
