@@ -33,7 +33,7 @@ jobs:
         make CC=${{matrix.cc}}
     - name: run tests
       run: |
-        prove -v
+        make test
     - name: run cppcheck
       if: matrix.cc == 'gcc'
       run: |
