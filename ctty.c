@@ -34,13 +34,25 @@ static void close_stdout(void)
 
 #define DEV_TTY "/dev/tty"
 
+const char * xctermid(void)
+{
+    const char *ctty = ctermid(NULL);
+    if (ctty[0] == '\0') {
+        return NULL;
+    }
+    return ctty;
+}
+
 int main(void)
 {
     int fd = open(DEV_TTY, O_RDONLY);
     if (fd < 0)
         xerror(DEV_TTY);
     close(fd);
-    printf(DEV_TTY "\n");
+    const char *ctty = xctermid();
+    if (ctty == NULL)
+        ctty = DEV_TTY;
+    puts(ctty);
     close_stdout();
     return EXIT_SUCCESS;
 }

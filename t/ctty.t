@@ -30,12 +30,14 @@ else
 fi
 out=$(cat "$tmpdir/out")
 sed -e 's/^/# /' "$tmpdir/out"
-if [ "$out" = /dev/tty ]
-then
-    echo ok 2
-else
-    echo not ok 2
-fi
+case $out in
+    /dev/tty)
+        echo ok 2;;
+    /dev/pts/*)
+        echo ok 2;;
+    *)
+        echo not ok 2;;
+esac
 if ! [ -s "$tmpdir/err" ]
 then
     echo ok 3
