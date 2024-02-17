@@ -52,6 +52,7 @@ int main(void)
     const char *ctty = xctermid();
     if (ctty == NULL)
         ctty = DEV_TTY;
+    /* TODO: On Linux, parse /proc/self/stat, field 7. */
     puts(ctty);
     close_stdout();
     return EXIT_SUCCESS;
