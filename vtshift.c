@@ -54,7 +54,7 @@ int main(void)
     char subcode = TIOCL_GETSHIFTSTATE;
     int rc = ioctl(STDIN_FILENO, TIOCLINUX, &subcode);
     if (rc < 0)
-	    xerror("ioctl");
+        xerror("ioctl");
     int n = subcode;
     for (size_t i = 0; i < ARRAY_SIZE(keys); i++)
         if (n & (1 << keys[i].value))
